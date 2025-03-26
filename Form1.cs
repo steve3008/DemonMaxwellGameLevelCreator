@@ -53,6 +53,29 @@ namespace DemonMaxwellGameLevelCreator
             SaveLevel();
         }
 
+
+        private void toolStripButtonSaveLevelAsImage_Click(object sender, EventArgs e)
+        {
+            if (_bmpBck == null)
+                return;
+
+            _rectBounds = new Rectangle(0, 0, _bmpBck.Width, _bmpBck.Height);
+            Bitmap bmpToSave = new Bitmap(_rectBounds.Width, _rectBounds.Height);
+            Graphics g = Graphics.FromImage(bmpToSave);
+            int i = 0;
+            if (_Objects != null)
+            {
+                foreach (ObjBase obj in _Objects)
+                {
+                    obj.Draw(g, i == _iObjSelected);
+                    i++;
+                }
+            }
+            g.Dispose();
+            bmpToSave.Save(_sLevelFile.Replace(".dat", ".png"));
+            panelLevel.Invalidate();
+        }
+
         private void toolStripButtonLoadLevel_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -731,12 +754,22 @@ namespace DemonMaxwellGameLevelCreator
 
         private void UpdateWallArcControls(WallArc obj)
         {
-            textBoxArcCentreX.Text = obj._Centre.X.ToString();
-            textBoxArcCentreY.Text = obj._Centre.Y.ToString();
-            textBoxArcRadius.Text = obj._fRadius.ToString();
+            textBoxArcCentreX.Text = obj._Centre.X.ToString("#.0000");
+            textBoxArcCentreY.Text = obj._Centre.Y.ToString("#.0000");
+            textBoxArcRadius.Text = obj._fRadius.ToString("#.0000");
             textBoxArcAngleFrom.Text = obj._iStartAngle.ToString();
             textBoxArcAngleTo.Text = obj._iEndAngle.ToString();
             checkBoxArcRemovable.Checked = obj._bRemovable;
+            UpdateWallArcStartAndEnd(obj);
+        }
+
+        private void UpdateWallArcStartAndEnd(WallArc obj)
+        {
+            obj.SetPoints();
+            textBoxArcStartX.Text = obj.StartPoint.X.ToString();
+            textBoxArcStartY.Text = obj.StartPoint.Y.ToString();
+            textBoxArcEndX.Text = obj.EndPoint.X.ToString();
+            textBoxArcEndY.Text = obj.EndPoint.Y.ToString();
         }
 
         private void textBoxArcCentreX_TextChanged(object sender, EventArgs e)
@@ -750,6 +783,7 @@ namespace DemonMaxwellGameLevelCreator
                 obj._Centre.X = val;
             }
             panelLevel.Invalidate();
+            UpdateWallArcStartAndEnd(obj);
         }
 
         private void textBoxArcCentreY_TextChanged(object sender, EventArgs e)
@@ -763,6 +797,7 @@ namespace DemonMaxwellGameLevelCreator
                 obj._Centre.Y = val;
             }
             panelLevel.Invalidate();
+            UpdateWallArcStartAndEnd(obj);
         }
 
         private void textBoxArcRadius_TextChanged(object sender, EventArgs e)
@@ -776,6 +811,7 @@ namespace DemonMaxwellGameLevelCreator
                 obj._fRadius = val;
             }
             panelLevel.Invalidate();
+            UpdateWallArcStartAndEnd(obj);
         }
 
         private void textBoxArcAngleFrom_TextChanged(object sender, EventArgs e)
@@ -789,6 +825,7 @@ namespace DemonMaxwellGameLevelCreator
                 obj._iStartAngle = val;
             }
             panelLevel.Invalidate();
+            UpdateWallArcStartAndEnd(obj);
         }
 
         private void textBoxArcAngleTo_TextChanged(object sender, EventArgs e)
@@ -802,6 +839,7 @@ namespace DemonMaxwellGameLevelCreator
                 obj._iEndAngle = val;
             }
             panelLevel.Invalidate();
+            UpdateWallArcStartAndEnd(obj);
         }
 
         private void checkBoxArcRemovable_CheckedChanged(object sender, EventArgs e)
@@ -811,6 +849,53 @@ namespace DemonMaxwellGameLevelCreator
             WallArc obj = (WallArc)_Objects[_iObjSelected];
             obj._bRemovable = checkBoxArcRemovable.Checked;
             panelLevel.Invalidate();
+        }
+
+        private void textBoxArcStartX_TextChanged(object sender, EventArgs e)
+        {
+            buttonArcSetStartAndEnd.Enabled = true;
+        }
+
+        private void textBoxArcStartY_TextChanged(object sender, EventArgs e)
+        {
+            buttonArcSetStartAndEnd.Enabled = true;
+        }
+
+        private void textBoxArcEndX_TextChanged(object sender, EventArgs e)
+        {
+            buttonArcSetStartAndEnd.Enabled = true;
+        }
+
+        private void textBoxArcEndY_TextChanged(object sender, EventArgs e)
+        {
+            buttonArcSetStartAndEnd.Enabled = true;
+        }
+
+        private void buttonArcSetStartAndEnd_Click(object sender, EventArgs e)
+        {
+            if (_iObjSelected < 0)
+                return;
+            WallArc obj = (WallArc)_Objects[_iObjSelected];
+            float val;
+            if (float.TryParse(textBoxArcStartX.Text, out val) && val >= 0.0 && val <= 1.0)
+            {
+                obj._Centre.X += val - obj.StartPoint.X;
+            }
+            if (float.TryParse(textBoxArcEndX.Text, out val) && val >= 0.0 && val <= 1.0)
+            {
+                obj._Centre.X += val - obj.EndPoint.X;
+            }
+            if (float.TryParse(textBoxArcStartY.Text, out val) && val >= 0.0 && val <= 1.0)
+            {
+                obj._Centre.Y += val - obj.StartPoint.Y;
+            }
+            if (float.TryParse(textBoxArcEndY.Text, out val) && val >= 0.0 && val <= 1.0)
+            {
+                obj._Centre.Y += val - obj.EndPoint.Y;
+            }
+            panelLevel.Invalidate();
+            UpdateWallArcControls(obj);
+            buttonArcSetStartAndEnd.Enabled = false;
         }
 
         ///////////////////////////////////////////

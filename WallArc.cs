@@ -19,7 +19,7 @@ namespace DemonMaxwellGameLevelCreator
         public int _iEndAngle;
 
         private RectangleF _Bounds;
-        private PointF[] _Path;
+        private PointF[] _Path = null;
 
         public WallArc(Vect2 centre, double radius, int startAngle, int endAngle, bool removable) : base()
         {
@@ -55,6 +55,22 @@ namespace DemonMaxwellGameLevelCreator
                     bottom = pnt.Y;
             }
             _Bounds = new RectangleF((float)left, (float)top, (float)(right - left), (float)(bottom - top));
+        }
+
+        public PointF StartPoint
+        {
+            get
+            {
+                return _Path == null? new PointF(0, 0) : _Path.First();
+            }
+        }
+
+        public PointF EndPoint
+        {
+            get
+            {
+                return _Path == null ? new PointF(0, 0) : _Path.Last();
+            }
         }
 
         public override void Draw(Graphics g, bool bSelected)

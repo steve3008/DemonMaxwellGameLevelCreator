@@ -136,6 +136,14 @@
             this.textBoxParabolaY = new System.Windows.Forms.TextBox();
             this.textBoxParabolaX = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.toolStripButtonSaveLevelAsImage = new System.Windows.Forms.ToolStripButton();
+            this.textBoxArcStartY = new System.Windows.Forms.TextBox();
+            this.textBoxArcStartX = new System.Windows.Forms.TextBox();
+            this.labelArcStart = new System.Windows.Forms.Label();
+            this.textBoxArcEndY = new System.Windows.Forms.TextBox();
+            this.textBoxArcEndX = new System.Windows.Forms.TextBox();
+            this.labelArcEnd = new System.Windows.Forms.Label();
+            this.buttonArcSetStartAndEnd = new System.Windows.Forms.Button();
             this.toolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -159,7 +167,8 @@
             this.toolStripButtonLoadLevel,
             this.toolStripButtonSaveLevel,
             this.toolStripDropDownButtonAddWall,
-            this.toolStripButtonAddBalls});
+            this.toolStripButtonAddBalls,
+            this.toolStripButtonSaveLevelAsImage});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -334,6 +343,13 @@
             // 
             // groupBoxArc
             // 
+            this.groupBoxArc.Controls.Add(this.buttonArcSetStartAndEnd);
+            this.groupBoxArc.Controls.Add(this.textBoxArcEndY);
+            this.groupBoxArc.Controls.Add(this.textBoxArcEndX);
+            this.groupBoxArc.Controls.Add(this.labelArcEnd);
+            this.groupBoxArc.Controls.Add(this.textBoxArcStartY);
+            this.groupBoxArc.Controls.Add(this.textBoxArcStartX);
+            this.groupBoxArc.Controls.Add(this.labelArcStart);
             this.groupBoxArc.Controls.Add(this.textBoxArcAngleTo);
             this.groupBoxArc.Controls.Add(this.labelArcStartEndTo);
             this.groupBoxArc.Controls.Add(this.textBoxArcAngleFrom);
@@ -344,9 +360,9 @@
             this.groupBoxArc.Controls.Add(this.textBoxArcCentreY);
             this.groupBoxArc.Controls.Add(this.textBoxArcCentreX);
             this.groupBoxArc.Controls.Add(this.labelArcCentre);
-            this.groupBoxArc.Location = new System.Drawing.Point(7, 205);
+            this.groupBoxArc.Location = new System.Drawing.Point(7, 494);
             this.groupBoxArc.Name = "groupBoxArc";
-            this.groupBoxArc.Size = new System.Drawing.Size(184, 136);
+            this.groupBoxArc.Size = new System.Drawing.Size(184, 209);
             this.groupBoxArc.TabIndex = 11;
             this.groupBoxArc.TabStop = false;
             this.groupBoxArc.Text = " Wall - Arc ";
@@ -391,7 +407,7 @@
             // checkBoxArcRemovable
             // 
             this.checkBoxArcRemovable.AutoSize = true;
-            this.checkBoxArcRemovable.Location = new System.Drawing.Point(9, 107);
+            this.checkBoxArcRemovable.Location = new System.Drawing.Point(9, 101);
             this.checkBoxArcRemovable.Name = "checkBoxArcRemovable";
             this.checkBoxArcRemovable.Size = new System.Drawing.Size(80, 17);
             this.checkBoxArcRemovable.TabIndex = 17;
@@ -446,11 +462,12 @@
             // 
             // buttonSnapToNearest
             // 
+            this.buttonSnapToNearest.Enabled = false;
             this.buttonSnapToNearest.Location = new System.Drawing.Point(7, 171);
             this.buttonSnapToNearest.Name = "buttonSnapToNearest";
             this.buttonSnapToNearest.Size = new System.Drawing.Size(184, 23);
             this.buttonSnapToNearest.TabIndex = 0;
-            this.buttonSnapToNearest.Text = "Snap to nearest other object";
+            this.buttonSnapToNearest.Text = "TODO: Snap to nearest other object";
             this.buttonSnapToNearest.UseVisualStyleBackColor = true;
             this.buttonSnapToNearest.Visible = false;
             this.buttonSnapToNearest.Click += new System.EventHandler(this.buttonSnapToNearest_Click);
@@ -1235,7 +1252,7 @@
             this.groupBoxParabola.Controls.Add(this.textBoxParabolaY);
             this.groupBoxParabola.Controls.Add(this.textBoxParabolaX);
             this.groupBoxParabola.Controls.Add(this.label2);
-            this.groupBoxParabola.Location = new System.Drawing.Point(7, 204);
+            this.groupBoxParabola.Location = new System.Drawing.Point(7, 229);
             this.groupBoxParabola.Name = "groupBoxParabola";
             this.groupBoxParabola.Size = new System.Drawing.Size(184, 103);
             this.groupBoxParabola.TabIndex = 12;
@@ -1307,6 +1324,82 @@
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Top Left:";
+            // 
+            // toolStripButtonSaveLevelAsImage
+            // 
+            this.toolStripButtonSaveLevelAsImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSaveLevelAsImage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonSaveLevelAsImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSaveLevelAsImage.Image")));
+            this.toolStripButtonSaveLevelAsImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSaveLevelAsImage.Name = "toolStripButtonSaveLevelAsImage";
+            this.toolStripButtonSaveLevelAsImage.Size = new System.Drawing.Size(153, 25);
+            this.toolStripButtonSaveLevelAsImage.Text = "Save Level as Image";
+            this.toolStripButtonSaveLevelAsImage.Click += new System.EventHandler(this.toolStripButtonSaveLevelAsImage_Click);
+            // 
+            // textBoxArcStartY
+            // 
+            this.textBoxArcStartY.Location = new System.Drawing.Point(130, 134);
+            this.textBoxArcStartY.Name = "textBoxArcStartY";
+            this.textBoxArcStartY.Size = new System.Drawing.Size(47, 20);
+            this.textBoxArcStartY.TabIndex = 24;
+            this.textBoxArcStartY.Text = "0.0000";
+            this.textBoxArcStartY.TextChanged += new System.EventHandler(this.textBoxArcStartY_TextChanged);
+            // 
+            // textBoxArcStartX
+            // 
+            this.textBoxArcStartX.Location = new System.Drawing.Point(77, 134);
+            this.textBoxArcStartX.Name = "textBoxArcStartX";
+            this.textBoxArcStartX.Size = new System.Drawing.Size(47, 20);
+            this.textBoxArcStartX.TabIndex = 22;
+            this.textBoxArcStartX.Text = "0.0000";
+            this.textBoxArcStartX.TextChanged += new System.EventHandler(this.textBoxArcStartX_TextChanged);
+            // 
+            // labelArcStart
+            // 
+            this.labelArcStart.AutoSize = true;
+            this.labelArcStart.Location = new System.Drawing.Point(7, 137);
+            this.labelArcStart.Name = "labelArcStart";
+            this.labelArcStart.Size = new System.Drawing.Size(32, 13);
+            this.labelArcStart.TabIndex = 23;
+            this.labelArcStart.Text = "Start:";
+            // 
+            // textBoxArcEndY
+            // 
+            this.textBoxArcEndY.Location = new System.Drawing.Point(130, 155);
+            this.textBoxArcEndY.Name = "textBoxArcEndY";
+            this.textBoxArcEndY.Size = new System.Drawing.Size(47, 20);
+            this.textBoxArcEndY.TabIndex = 27;
+            this.textBoxArcEndY.Text = "0.0000";
+            this.textBoxArcEndY.TextChanged += new System.EventHandler(this.textBoxArcEndY_TextChanged);
+            // 
+            // textBoxArcEndX
+            // 
+            this.textBoxArcEndX.Location = new System.Drawing.Point(77, 155);
+            this.textBoxArcEndX.Name = "textBoxArcEndX";
+            this.textBoxArcEndX.Size = new System.Drawing.Size(47, 20);
+            this.textBoxArcEndX.TabIndex = 25;
+            this.textBoxArcEndX.Text = "0.0000";
+            this.textBoxArcEndX.TextChanged += new System.EventHandler(this.textBoxArcEndX_TextChanged);
+            // 
+            // labelArcEnd
+            // 
+            this.labelArcEnd.AutoSize = true;
+            this.labelArcEnd.Location = new System.Drawing.Point(7, 158);
+            this.labelArcEnd.Name = "labelArcEnd";
+            this.labelArcEnd.Size = new System.Drawing.Size(29, 13);
+            this.labelArcEnd.TabIndex = 26;
+            this.labelArcEnd.Text = "End:";
+            // 
+            // buttonArcSetStartAndEnd
+            // 
+            this.buttonArcSetStartAndEnd.Enabled = false;
+            this.buttonArcSetStartAndEnd.Location = new System.Drawing.Point(6, 178);
+            this.buttonArcSetStartAndEnd.Name = "buttonArcSetStartAndEnd";
+            this.buttonArcSetStartAndEnd.Size = new System.Drawing.Size(172, 23);
+            this.buttonArcSetStartAndEnd.TabIndex = 0;
+            this.buttonArcSetStartAndEnd.Text = "Update start and end";
+            this.buttonArcSetStartAndEnd.UseVisualStyleBackColor = true;
+            this.buttonArcSetStartAndEnd.Click += new System.EventHandler(this.buttonArcSetStartAndEnd_Click);
             // 
             // Form1
             // 
@@ -1455,6 +1548,14 @@
         private System.Windows.Forms.TextBox textBoxParabolaY;
         private System.Windows.Forms.TextBox textBoxParabolaX;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSaveLevelAsImage;
+        private System.Windows.Forms.TextBox textBoxArcEndY;
+        private System.Windows.Forms.TextBox textBoxArcEndX;
+        private System.Windows.Forms.Label labelArcEnd;
+        private System.Windows.Forms.TextBox textBoxArcStartY;
+        private System.Windows.Forms.TextBox textBoxArcStartX;
+        private System.Windows.Forms.Label labelArcStart;
+        private System.Windows.Forms.Button buttonArcSetStartAndEnd;
     }
 }
 
